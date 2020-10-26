@@ -4,13 +4,17 @@
 require("dotenv").config()
 const {
   PORT = 3000,
-  SECRET = "secret",
+  SECRET = "cheese",
   NODE_ENV = "development",
 } = process.env;
 
 //CORS
 const cors = require("cors");
 const corsOptions = require("./configs/cors.js");
+
+//MONGO CONNECTION
+const mongoose = require("./DB/conn");
+
 
 //AUTH
 const jwt = require("jsonwebtoken");
@@ -22,31 +26,25 @@ const app = express();
 
 //OTHER IMPORTS
 const morgan = require("morgan");
+const wordRouter = require("./controllers/word");
 
 ////////////
 //MIDDLEWARE
 ////////////
-NODE_ENV === "production" ? app.use(cors(corsOptions)) : app.use(cors());
-app.use(express.static("public"));
+app.use(cors())
 app.use(express.json());
 app.use(morgan("tiny")); //logging
 
 ///////////////
 //Routes and Routers
 //////////////
+//Route for testing server is working
 app.get("/", (req, res) => {
   res.json({ hello: "Hello World!" });
 });
 
-//These routes are to generate a test JWT and test out your auth function from auth.js
-app.get("/testauth", auth(SECRET), (req, res) => {
-  res.json(req.payload);
-});
-
-app.get("/testjwt", (req, res) => {
-  const token = jwt.sign({ hello: "world" }, SECRET);
-  res.json({ token });
-});
+// Word Routes send to dog router
+app.use("/word", wordRouter);
 
 //LISTENER
 app.listen(PORT, () => {
