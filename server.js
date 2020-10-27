@@ -1,9 +1,9 @@
 ///////////////////////////
 // Environmental Variables
 ///////////////////////////
-require("dotenv").config()
+require("dotenv").config();
 const {
-  PORT = 3000,
+  PORT = 5000,
   SECRET = "cheese",
   NODE_ENV = "development",
 } = process.env;
@@ -14,7 +14,6 @@ const corsOptions = require("./configs/cors.js");
 
 //MONGO CONNECTION
 const mongoose = require("./DB/conn");
-
 
 //AUTH
 const jwt = require("jsonwebtoken");
@@ -31,7 +30,7 @@ const wordRouter = require("./controllers/word");
 ////////////
 //MIDDLEWARE
 ////////////
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny")); //logging
 
