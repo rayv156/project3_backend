@@ -1,9 +1,15 @@
 ///////////////////////////
 // Environmental Variables
 ///////////////////////////
+
+const AuthRouter = require('./controllers/user.js')
+const auth = require("./auth")
+
+
 require("dotenv").config()
+
 const {
-  PORT = 3000,
+  PORT = 5000,
   SECRET = "cheese",
   NODE_ENV = "development",
 } = process.env;
@@ -15,10 +21,9 @@ const corsOptions = require("./configs/cors.js");
 //MONGO CONNECTION
 const mongoose = require("./DB/conn");
 
-
 //AUTH
 const jwt = require("jsonwebtoken");
-const { auth } = require("./configs/auth.js");
+// const { auth } = require("./configs/auth.js");
 
 //Bringing in Express
 const express = require("express");
@@ -31,7 +36,7 @@ const wordRouter = require("./controllers/word");
 ////////////
 //MIDDLEWARE
 ////////////
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny")); //logging
 
@@ -45,6 +50,13 @@ app.get("/", (req, res) => {
 
 // Word Routes send to dog router
 app.use("/word", wordRouter);
+
+// //Auth router
+app.get('/', auth, (req, res) => {
+  res.json(req.payload)
+}) 
+ 
+app.use("/auth", AuthRouter)
 
 //LISTENER
 app.listen(PORT, () => {

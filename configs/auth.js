@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const User = require('../models/user.js')
+
 
 //This function receives your token payload and contains the logic to verify if the user is genuine.
 
