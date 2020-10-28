@@ -2,6 +2,7 @@ const Word = require("../models/word");
 const { Router } = require("express");
 const router = Router();
 const fetch = require("node-fetch");
+const { APIKEY } = process.env;
 
 //index route
 router.get("/", async (req, res) => {
@@ -31,7 +32,7 @@ router.get("/show/:word", (req, res) => {
   const maxResults = 3;
   const searchTerm = "how+to+say+" + req.params.word + "+in+sign+language";
   fetch(
-    `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDuration=short&maxResults=${maxResults}&q=${searchTerm}&key=AIzaSyDGKp8Vw5qEENb-P0-wMC2ckcBKtCd5ONY`
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&videoDuration=short&maxResults=${maxResults}&q=${searchTerm}&key=${APIKEY}`
   )
     .then(
       (data) => data.json(),
