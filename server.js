@@ -1,7 +1,13 @@
 ///////////////////////////
 // Environmental Variables
 ///////////////////////////
-require("dotenv").config();
+
+const AuthRouter = require('./controllers/user.js')
+const auth = require("./auth")
+
+
+require("dotenv").config()
+
 const {
   PORT = 5000,
   SECRET = "cheese",
@@ -17,7 +23,7 @@ const mongoose = require("./DB/conn");
 
 //AUTH
 const jwt = require("jsonwebtoken");
-const { auth } = require("./configs/auth.js");
+// const { auth } = require("./configs/auth.js");
 
 //Bringing in Express
 const express = require("express");
@@ -44,6 +50,13 @@ app.get("/", (req, res) => {
 
 // Word Routes send to dog router
 app.use("/word", wordRouter);
+
+// //Auth router
+app.get('/', auth, (req, res) => {
+  res.json(req.payload)
+}) 
+ 
+app.use("/auth", AuthRouter)
 
 //LISTENER
 app.listen(PORT, () => {
