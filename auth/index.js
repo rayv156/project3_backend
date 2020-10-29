@@ -2,6 +2,7 @@
 require("dotenv").config()
 const {SECRET} = process.env
 const jwt = require("jsonwebtoken")
+const cors = require('cors')
 
 const auth = async (req, res, next) => {
     try{
