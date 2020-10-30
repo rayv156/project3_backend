@@ -1,15 +1,12 @@
 ///////////////////////////
 // Environmental Variables
 ///////////////////////////
-
 const AuthRouter = require('./controllers/user.js')
 const auth = require("./auth")
 
-
 require("dotenv").config()
-
 const {
-  PORT = 5000,
+  PORT = 3000,
   SECRET = "cheese",
   NODE_ENV = "development",
 } = process.env;
@@ -36,7 +33,7 @@ const wordRouter = require("./controllers/word");
 ////////////
 //MIDDLEWARE
 ////////////
-app.use(cors());
+app.use(cors())
 app.use(express.json());
 app.use(morgan("tiny")); //logging
 

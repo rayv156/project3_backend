@@ -3,26 +3,27 @@ const { Router } = require("express");
 const router = Router();
 const fetch = require("node-fetch");
 const { APIKEY } = process.env;
+const auth = require('../auth')
 
 //index route
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   res.json(await Word.find({}));
 });
 
 //create route
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   res.json(await Word.create(req.body));
 });
 
 //update route
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   res.json(
     await Word.findByIdAndUpdate(req.params.id, req.body, { new: true })
   );
 });
 
 //delete route
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   res.json(await Word.findByIdAndRemove(req.params.id));
 });
 
