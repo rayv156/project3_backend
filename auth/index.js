@@ -10,9 +10,9 @@ const auth = async (req, res, next) => {
     if (req.headers.authorization){
         console.log("hello")
         const token = req.headers.authorization.split(" ")[1]
-        console.log(token)
+        //console.log(token)
         const payload = jwt.verify(token, SECRET)
-        console.log(payload)
+        //console.log(payload)
         if (payload){
             req.payload = payload
             next();
