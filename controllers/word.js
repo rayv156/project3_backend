@@ -6,24 +6,25 @@ const { APIKEY } = process.env;
 const auth = require('../auth')
 
 //index route
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
+  const {user} = req.body
   res.json(await Word.find({}));
 });
 
 //create route
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   res.json(await Word.create(req.body));
 });
 
 //update route
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", async (req, res) => {
   res.json(
     await Word.findByIdAndUpdate(req.params.id, req.body, { new: true })
   );
 });
 
 //delete route
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   res.json(await Word.findByIdAndRemove(req.params.id));
 });
 
