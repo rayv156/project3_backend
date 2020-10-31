@@ -41,20 +41,20 @@ app.use(morgan("tiny")); //logging
 //Routes and Routers
 //////////////
 //Route for testing server is working
-app.get("/", (req, res) => {
-  res.json({ hello: "Hello World!" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ hello: "Hello World!" });
+// });
 
 // Word Routes send to dog router
-app.use("/word", wordRouter);
 
-// //Auth router
-app.get('/', auth, (req, res) => {
-  res.json(req.payload)
-}) 
- 
-app.use("/auth", AuthRouter)
-
+// // //Auth router
+// app.get('/', auth, (req, res) => {
+  //   res.json(req.payload)
+  // }) 
+  
+  app.use("/auth", AuthRouter)
+  
+  app.use("/word", auth, wordRouter);
 //LISTENER
 app.listen(PORT, () => {
   console.log(`Your are listening on port ${PORT}`);
