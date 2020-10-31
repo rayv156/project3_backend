@@ -5,6 +5,7 @@ const wordSchema = new Schema(
   {
     word: String,
     img: String,
+    user: String
   },
   { timestamps: true }
 );
